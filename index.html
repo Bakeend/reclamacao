@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reclamações Urbanas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="modalSeguranca" class="modal-seguranca">
+        <div class="modal-conteudo">
+            <h2>Digite o código de segurança</h2>
+            <input type="password" id="inputCodigoSeguranca" placeholder="Código">
+            <div class="botoes">
+                <button id="btnConfirmarCodigo">Confirmar</button>
+                <button id="btnCancelarCodigo">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-city"></i> Sistema de Reclamações Urbanas</h1>
+            <p>Registre e acompanhe problemas nas ruas da sua cidade</p>
+        </header>
+
+        <nav>
+            <button id="btnPesquisar" class="active"><i class="fas fa-search"></i> Pesquisar</button>
+            <button id="btnGerenciar"><i class="fas fa-edit"></i> Gerenciar</button>
+            <button id="btnRelatorios"><i class="fas fa-chart-bar"></i> Relatórios</button>
+            <button id="btnExportar"><i class="fas fa-file-export"></i> Exportar</button>
+        </nav>
+
+        <!-- Seção Pesquisar -->
+        <section id="pesquisar" class="content-section active">
+            <h2><i class="fas fa-search"></i> Pesquisar Reclamações</h2>
+            <div class="search-box">
+                <input type="text" id="inputPesquisa" placeholder="Digite o nome da rua...">
+                <button id="btnBuscar"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+            <div id="resultadosPesquisa" class="results-container"></div>
+        </section>
+
+        <!-- Seção Gerenciar -->
+        <section id="gerenciar" class="content-section">
+            <h2><i class="fas fa-edit"></i> Gerenciar Reclamações</h2>
+            
+            <div class="tabs">
+                <button id="btnAdicionarRua" class="tab-active"><i class="fas fa-plus"></i> Adicionar</button>
+                <button id="btnEditarRua"><i class="fas fa-pencil-alt"></i> Editar</button>
+                <button id="btnRemoverRua"><i class="fas fa-trash-alt"></i> Remover</button>
+            </div>
+            
+            <!-- Formulário Adicionar -->
+            <div id="formAdicionar" class="form-container">
+                <form id="formAdicionarSubmit">
+                    <div class="form-group">
+                        <label for="rua">Nome da Rua:</label>
+                        <input type="text" id="rua" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="numero">Número:</label>
+                        <input type="number" id="numero" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bairro">Bairro:</label>
+                        <input type="text" id="bairro" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="qtdReclamacoes">Quantidade de Reclamações:</label>
+                        <input type="number" id="qtdReclamacoes" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Avaliação (1-5 estrelas):</label>
+                        <div class="rating" id="rating">
+                            <i class="fas fa-star" data-value="1"></i>
+                            <i class="fas fa-star" data-value="2"></i>
+                            <i class="fas fa-star" data-value="3"></i>
+                            <i class="fas fa-star" data-value="4"></i>
+                            <i class="fas fa-star" data-value="5"></i>
+                        </div>
+                        <input type="hidden" id="avaliacao" value="1" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar</button>
+                </form>
+            </div>
+
+            <!-- Formulário Editar -->
+            <div id="formEditarRua" class="form-container hidden">
+                <div class="form-group">
+                    <label for="editarId">ID da Rua:</label>
+                    <input type="number" id="editarId" class="input-id">
+                    <button id="btnCarregarEdicao" class="btn-small"><i class="fas fa-search"></i> Carregar</button>
+                </div>
+                
+                <form id="formEditarSubmit" class="hidden">
+                    <div class="form-group">
+                        <label for="editarRua">Nome da Rua:</label>
+                        <input type="text" id="editarRua" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editarNumero">Número:</label>
+                        <input type="number" id="editarNumero" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editarBairro">Bairro:</label>
+                        <input type="text" id="editarBairro" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editarQtd">Quantidade de Reclamações:</label>
+                        <input type="number" id="editarQtd" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Avaliação (1-5 estrelas):</label>
+                        <div class="rating" id="ratingEditar">
+                            <i class="fas fa-star" data-value="1"></i>
+                            <i class="fas fa-star" data-value="2"></i>
+                            <i class="fas fa-star" data-value="3"></i>
+                            <i class="fas fa-star" data-value="4"></i>
+                            <i class="fas fa-star" data-value="5"></i>
+                        </div>
+                        <input type="hidden" id="editarAvaliacao" value="1" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Atualizar</button>
+                </form>
+            </div>
+
+            <!-- Formulário Remover -->
+            <div id="formRemoverRua" class="form-container hidden">
+                <div class="form-group">
+                    <label for="removerId">ID da Rua:</label>
+                    <input type="number" id="removerId" class="input-id">
+                    <button id="btnCarregarRemocao" class="btn-small"><i class="fas fa-search"></i> Carregar</button>
+                </div>
+                
+                <div id="infoRemocao" class="hidden">
+                    <h3>Confirmar Remoção</h3>
+                    <p><strong>Rua:</strong> <span id="ruaRemover"></span></p>
+                    <p><strong>Número:</strong> <span id="numeroRemover"></span></p>
+                    <p><strong>Bairro:</strong> <span id="bairroRemover"></span></p>
+                    <button id="btnConfirmarRemocao" class="btn-danger"><i class="fas fa-trash-alt"></i> Confirmar Remoção</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Relatórios -->
+        <section id="relatorios" class="content-section">
+            <h2><i class="fas fa-chart-bar"></i> Relatórios</h2>
+            <div id="conteudoRelatorios"></div>
+        </section>
+
+        <!-- Seção Exportar -->
+        <section id="exportar" class="content-section">
+            <h2><i class="fas fa-file-export"></i> Exportar Dados</h2>
+            <div class="export-options">
+                <button id="btnExportarCSV" class="btn-primary"><i class="fas fa-file-csv"></i> Exportar para CSV</button>
+                <button id="btnExportarJSON" class="btn-primary"><i class="fas fa-file-code"></i> Exportar para JSON</button>
+            </div>
+            <div id="exportResult"></div>
+        </section>
+
+        <footer>
+            <p>Sistema de Reclamações Urbanas &copy; <span id="currentYear"></span></p>
+        </footer>
+    </div>
+
+    <script src="js/database.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
